@@ -11,20 +11,26 @@ test('DistinctiveButton uses state to populate values', () => {
     description:"Accurate and well presented",
     distinctive:C.QUALITY_DISTINCTIVE,
     inProgress:"",
+    distinctiveClicked:distinctiveClicked.bind(this),
   }
 
-  function distinctiveClicked() {
-    console.log('distinctiveClicked');
+  let distinctiveClickedValue = "false";
+  function distinctiveClicked(distinctiveName) {
+    distinctiveClickedValue = distinctiveName;
   }
 
   const component = renderer.create(
-    <DistinctiveButton distinctiveClicked={distinctiveClicked.bind(this)} {...distinctiveProps}/>,
+    <DistinctiveButton {...distinctiveProps}/>,
   );
   let tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 
   // manually trigger the callback
   tree.props.onClick(C.QUALITY_DISTINCTIVE);
+
+  // makes sure that the function distinctiveClicked is called with the proper parameters
+  expect(distinctiveClickedValue).toBe(C.QUALITY_DISTINCTIVE);
+
   // re-rendering
   tree = component.toJSON();
   expect(tree).toMatchSnapshot();
