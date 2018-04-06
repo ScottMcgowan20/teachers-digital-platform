@@ -145,9 +145,9 @@
                     <div class="a-select">
                         <select id="tdp-crt_grade">
                             <option value="">Select grade range</option>
-                            <option value="">Elementary School</option>
-                            <option value="">Middle School</option>
-                            <option value="">High School</option>
+                            <option value="Elementary School">Elementary School</option>
+                            <option value="Middle School">Middle School</option>
+                            <option value="High School">High School</option>
                         </select>
                     </div>
                 </div>
@@ -167,7 +167,7 @@
                 </div>
             </div>
             <div class="m-btn-group">
-                <button id="begin-btn" class="a-btn" type="submit" onclick="localStorage.setItem('curriculumTitle', tdp-crt_title.value)" formaction="http://localhost:8000/tdp/prototypes/crt-survey-react/"/>
+                <button id="begin-btn" class="a-btn" type="submit" onclick="beginReviewButtonClick();" formaction="http://localhost:8000/tdp/prototypes/crt-survey-react/"/>
                     Begin Review
                 </button>
                 <button href="#" class="a-btn a-btn__link">Start over with a new review</button>
@@ -269,6 +269,17 @@
 
         function closeModalWindow(event) {
             modalWindow.classList.remove('o-modal__visible');
+        }
+
+        function beginReviewButtonClick() {
+            let curriculumTitle = document.getElementById('tdp-crt_title').value;
+            localStorage.setItem('curriculumTitle', curriculumTitle);
+
+            let publicationDate = document.getElementById('tdp-crt_pubdate').value;
+            localStorage.setItem('publicationDate', publicationDate);
+
+            let gradeRange = document.getElementById('tdp-crt_grade').value;
+            localStorage.setItem('gradeRange', gradeRange);
         }
     </script>
 {%- endblock javascript %}
